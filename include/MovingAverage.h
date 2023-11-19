@@ -1,34 +1,38 @@
+#include <iostream>
 #include <vector>
 
 template <typename T>
 class MovingAverage {
 	public:
-		MovingAverage(int period);
-		virtual void addData(const T& data) = 0;
-		virtual T calculate() const = 0;
-		virtual void setMA();
-		virtual T getMA();
+		MovingAverage();
+		virtual void addDataAndCalculateMA(const T& data) = 0;
+		virtual T getMA() const;
 
 	protected:
-		int period_;
-		std::vector<T> dataStore_;
 		T currentMA_;
 };
 
 template <typename T>
 class SimpleMovingAverage: public MovingAverage<T> {
+	protected:
+		int PERIOD;
+		std::vector<T> dataStore_;
 	public:
-		/* To bring construtor of base class into scope? */
-		SimpleMovingAverage(int period) : MovingAverage<T>(period) {}
-		void addData(const T& data) override;
-		T calculate() const override;
+		SimpleMovingAverage(int period);
+		
+		void addDataAndCalculateMA(const T& data) override;
+		void addData(const T& data);
 };
 
 template <typename T>
 class ExponentialMovingAverage: public MovingAverage<T> {
+	protected:
+		int count_ = 0;
+		double SPAN = 1.0;
+		double ALPHA = 1.0;
 	public:
-		/* To bring construtor of base class into scope? */
-		ExponentialMovingAverage(int period) : MovingAverage<T>(period) {}
-		void addData(const T& data) override;
-		T calculate() const override;
+		ExponentialMovingAverage(double inputSpan);
+
+		//void addData(const T& data) override;
+		void addDataAndCalculateMA(const T& data) override;
 };

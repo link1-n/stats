@@ -2,19 +2,24 @@ include ../build/common_flags.mk
 
 MODULES = stats
 
-PROJECT = main
-
 INC_FLAGS = -I ../include/
-LIB_FLAGS = ../lib/MovingAverage.o
 
-all: $(PROJECT)
+LIB_FLAGS = -L ../lib/
+LIB_FLAGS += -lMovingAverage
 
-$(PROJECT): $(PROJECT).cpp
-	$(CXX) $(CXXFLAGS) $(INC_FLAGS) $(LIB_FLAGS) $(PROJECT).cpp -o $(PROJECT)
+PROJECT_MAIN = main
+#PROJECT_CLASS = mainClass
+
+#all: $(PROJECT_MAIN) $(PROJECT_CLASS)
+all: $(PROJECT_MAIN)
+
+$(PROJECT_MAIN): $(PROJECT_MAIN).cpp
+	$(CXX) $(CXXFLAGS) $(INC_FLAGS) $(LIB_FLAGS) $(PROJECT_MAIN).cpp -o \
+		$(PROJECT_MAIN)
 
 .PHONY: clean
 
 clean:
-	rm $(PROJECT)
-	rm -rf $(PROJECT).dSYM
+	rm $(PROJECT_MAIN)
+	rm -rf $(PROJECT_MAIN).dSYM
 

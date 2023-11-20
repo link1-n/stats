@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main() {
-	double emaSpan = 3.0;
+	double emaSpan = 10.0;
 	double smaPeriod = 3.0;
 	SimpleMovingAverage<double> sma(smaPeriod);
 	ExponentialMovingAverage<double> ema(emaSpan);

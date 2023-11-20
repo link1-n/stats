@@ -5,7 +5,7 @@ PROJECT = MovingAverage
 INC_DIR = ../include
 LIB_DIR = ../lib
 
-#DEFINE_FLAGS = -DMA_DEBUG
+DEFINE_FLAGS = -DMA_DEBUG
 
 all: $(LIB_DIR)/$(PROJECT).o $(LIB_DIR)/lib$(PROJECT).a
 

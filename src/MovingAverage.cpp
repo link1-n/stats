@@ -15,6 +15,15 @@ SimpleMovingAverage<T>::SimpleMovingAverage(int period) : PERIOD(period) {
 }
 
 template <typename T>
+SimpleMovingAverage<T>::SimpleMovingAverage(){
+}
+
+template <typename T>
+void SimpleMovingAverage<T>::setPeriod(int inputPeriod){
+	this->PERIOD = inputPeriod;
+}
+
+template <typename T>
 void SimpleMovingAverage<T>::addData(const T& data) {
 	this->dataStore_.push_back(data);
 
@@ -50,6 +59,15 @@ ExponentialMovingAverage<T>::ExponentialMovingAverage(double inputSpan) :
 	SPAN(inputSpan) {
 		ALPHA = 2.0 / (1 + SPAN);
 	}
+template <typename T>
+ExponentialMovingAverage<T>::ExponentialMovingAverage() {
+}
+
+template <typename T>
+void ExponentialMovingAverage<T>::setSpan(double inputSpan) {
+	this->SPAN = inputSpan;
+	ALPHA = 2.0 / (1 + SPAN);
+}
 
 template <typename T>
 void ExponentialMovingAverage<T>::addDataAndCalculateMA(const T& data) {
@@ -66,6 +84,8 @@ void ExponentialMovingAverage<T>::addDataAndCalculateMA(const T& data) {
 
 	if (previousEma == 0) {
 		this->currentMA_ = data;
+//
+//		return;
 	}
 
 	const double alpha = this->ALPHA;
@@ -77,7 +97,7 @@ void ExponentialMovingAverage<T>::addDataAndCalculateMA(const T& data) {
 	std::cout << "ema,data," << data
 		<< ",SPAN," << this->SPAN
 		<< ",ALPHA," << this->ALPHA
-		<< ",previusEma," << previousEma
+		<< ",previousEma," << previousEma
 		<< ",currentMA," << this->currentMA_
 		<< std::endl;
 #endif

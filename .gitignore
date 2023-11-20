@@ -1,4 +1,6 @@
 lib/*
 test/main.dSYM
 test/main
+test/mainClass.dSYM
+test/mainClass
 

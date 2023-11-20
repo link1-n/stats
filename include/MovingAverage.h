@@ -19,9 +19,11 @@ class SimpleMovingAverage: public MovingAverage<T> {
 		std::vector<T> dataStore_;
 	public:
 		SimpleMovingAverage(int period);
+		SimpleMovingAverage();
 		
 		void addDataAndCalculateMA(const T& data) override;
 		void addData(const T& data);
+		void setPeriod(int inputPeriod);
 };
 
 template <typename T>
@@ -32,7 +34,9 @@ class ExponentialMovingAverage: public MovingAverage<T> {
 		double ALPHA = 1.0;
 	public:
 		ExponentialMovingAverage(double inputSpan);
+		ExponentialMovingAverage();
 
 		//void addData(const T& data) override;
 		void addDataAndCalculateMA(const T& data) override;
+		void setSpan(double inputSpan);
 };

@@ -3,4 +3,12 @@ test/main.dSYM
 test/main
 test/mainClass.dSYM
 test/mainClass
+test/mainStd.dSYM
+test/mainStd
+test/.cache
+
+test/compile_commands.json
+src/compile_commands.json
+
+src/.cache
 

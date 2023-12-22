@@ -27,7 +27,7 @@ template <typename T>
 void SimpleMovingAverage<T>::addData(const T& data) {
 	this->dataStore_.push_back(data);
 
-	if (this->dataStore_.size() > this->PERIOD) {
+	if (int(this->dataStore_.size()) > this->PERIOD) {
 		this->dataStore_.erase(this->dataStore_.begin());
 	}
 }

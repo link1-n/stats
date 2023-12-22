@@ -8,6 +8,7 @@ endif
 ifeq ($(UNAME), Darwin)
 CC = gcc-13
 CXX = g++-13
+#CXX = clang++
 endif
 
 CFLAGS = -g -Wextra -Wall -pedantic -Wfloat-equal -Wundef -Wshadow \

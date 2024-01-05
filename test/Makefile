@@ -1,36 +1,22 @@
 include ../build/common_flags.mk
 
-MODULES = stats
+PROJECTS = rollingStats_test movingAverage_test movingAverageClass_test
 
 INC_FLAGS = -I ../include/
+LIB_FLAGS = -L ../lib/ -lStats
 
-LIB_FLAGS = -L ../lib/
-LIB_FLAGS += -lMovingAverage
-LIB_FLAGS += -lMeanDev
+all: $(foreach proj, $(PROJECTS), $(proj))
 
-PROJECT_MAIN = main
-PROJECT_CLASS = mainClass
-PROJECT_STD = mainStd
-
-all: $(PROJECT_MAIN) $(PROJECT_CLASS) $(PROJECT_STD)
-
-$(PROJECT_MAIN): $(PROJECT_MAIN).cpp
-	$(CXX) $(CXXFLAGS) $(INC_FLAGS) $(LIB_FLAGS) $(PROJECT_MAIN).cpp -o \
-		$(PROJECT_MAIN)
-
-$(PROJECT_CLASS): $(PROJECT_CLASS).cpp
-	$(CXX) $(CXXFLAGS) $(INC_FLAGS) $(LIB_FLAGS) $(PROJECT_CLASS).cpp -o \
-		$(PROJECT_CLASS)
-
-$(PROJECT_STD): $(PROJECT_STD).cpp
-	$(CXX) $(CXXFLAGS) $(INC_FLAGS) $(LIB_FLAGS) $(PROJECT_STD).cpp -o \
-		$(PROJECT_STD)
+define build_executable
+$(1): $(1).cpp
+	@echo -e ${YELLOW}CREATING EXECUTABLE $(1)${NC}
+	$(CXX) $(CXXFLAGS) $(DEFINE_FLAGS) $(INC_FLAGS) $(1).cpp -o $(1) $(LIB_FLAGS)
+endef
 
 .PHONY: clean
 
+$(foreach proj, $(PROJECTS), $(eval $(call build_executable,$(proj))))
+
 clean:
-	rm $(PROJECT_MAIN)
-	rm -rf $(PROJECT_MAIN).dSYM
-	rm $(PROJECT_CLASS)
-	rm -rf $(PROJECT_CLASS).dSYM
+	rm -rf $(foreach proj, $(PROJECTS), $(proj) $(proj).dSYM) 
 

@@ -1,33 +1,30 @@
 #include <iostream>
 #include <vector>
 
-template <typename T>
 class MovingAverage {
 	public:
 		MovingAverage();
-		virtual void addDataAndCalculateMA(const T& data) = 0;
-		virtual T getMA() const;
+		virtual void addDataAndCalculateMA(const double& data) = 0;
+		virtual double getMA() const;
 
 	protected:
-		T currentMA_;
+		double currentMA_;
 };
 
-template <typename T>
-class SimpleMovingAverage: public MovingAverage<T> {
+class SimpleMovingAverage: public MovingAverage {
 	protected:
 		int PERIOD;
-		std::vector<T> dataStore_;
+		std::vector<double> dataStore_;
 	public:
 		SimpleMovingAverage(int period);
 		SimpleMovingAverage();
 		
-		void addDataAndCalculateMA(const T& data) override;
-		void addData(const T& data);
+		void addDataAndCalculateMA(const double& data) override;
+		void addData(const double& data);
 		void setPeriod(int inputPeriod);
 };
 
-template <typename T>
-class ExponentialMovingAverage: public MovingAverage<T> {
+class ExponentialMovingAverage: public MovingAverage {
 	protected:
 		int count_ = 0;
 		double SPAN = 1.0;
@@ -37,6 +34,6 @@ class ExponentialMovingAverage: public MovingAverage<T> {
 		ExponentialMovingAverage();
 
 		//void addData(const T& data) override;
-		void addDataAndCalculateMA(const T& data) override;
+		void addDataAndCalculateMA(const double& data) override;
 		void setSpan(double inputSpan);
 };

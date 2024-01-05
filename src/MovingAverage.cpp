@@ -1,30 +1,29 @@
 #include "MovingAverage.h"
 
-template <typename T>
-MovingAverage<T>::MovingAverage(){
+MovingAverage::MovingAverage(){
 }
 
-template <typename T>
-T MovingAverage<T>::getMA() const {
+double MovingAverage::getMA() const {
 	return currentMA_;
 }
 
-/* SMA Start */
-template <typename T>
-SimpleMovingAverage<T>::SimpleMovingAverage(int period) : PERIOD(period) {
+/* 
+ *
+ *
+ * SMA Start 
+ *
+ * */
+SimpleMovingAverage::SimpleMovingAverage(int period) : PERIOD(period) {
 }
 
-template <typename T>
-SimpleMovingAverage<T>::SimpleMovingAverage(){
+SimpleMovingAverage::SimpleMovingAverage(){
 }
 
-template <typename T>
-void SimpleMovingAverage<T>::setPeriod(int inputPeriod){
+void SimpleMovingAverage::setPeriod(int inputPeriod){
 	this->PERIOD = inputPeriod;
 }
 
-template <typename T>
-void SimpleMovingAverage<T>::addData(const T& data) {
+void SimpleMovingAverage::addData(const double& data) {
 	this->dataStore_.push_back(data);
 
 	if (int(this->dataStore_.size()) > this->PERIOD) {
@@ -32,16 +31,15 @@ void SimpleMovingAverage<T>::addData(const T& data) {
 	}
 }
 
-template <typename T>
-void SimpleMovingAverage<T>::addDataAndCalculateMA(const T& data) {
+void SimpleMovingAverage::addDataAndCalculateMA(const double& data) {
 	addData(data);
 
-	T sum = 0;
+	double sum = 0;
 	for (const auto &i: this->dataStore_) {
 		sum += i;
 	}
 
-	this->currentMA_ = (sum / static_cast<T>(this->dataStore_.size()));
+	this->currentMA_ = (sum / static_cast<double>(this->dataStore_.size()));
 
 #ifdef MA_DEBUG
 	std::cout << "sma,data," << data
@@ -53,39 +51,41 @@ void SimpleMovingAverage<T>::addDataAndCalculateMA(const T& data) {
 }
 /* SMA End */
 
-/* EMA Start */
-template <typename T>
-ExponentialMovingAverage<T>::ExponentialMovingAverage(double inputSpan) :
+/* 
+ *
+ *
+ * EMA Start 
+ *
+ * */
+ExponentialMovingAverage::ExponentialMovingAverage(double inputSpan) :
 	SPAN(inputSpan) {
 		ALPHA = 2.0 / (1 + SPAN);
 	}
-template <typename T>
-ExponentialMovingAverage<T>::ExponentialMovingAverage() {
+ExponentialMovingAverage::ExponentialMovingAverage() {
 }
 
-template <typename T>
-void ExponentialMovingAverage<T>::setSpan(double inputSpan) {
+void ExponentialMovingAverage::setSpan(double inputSpan) {
 	this->SPAN = inputSpan;
 	ALPHA = 2.0 / (1 + SPAN);
 }
 
-template <typename T>
-void ExponentialMovingAverage<T>::addDataAndCalculateMA(const T& data) {
+void ExponentialMovingAverage::addDataAndCalculateMA(const double& data) {
 
-	/* when I use getMA() without explicit class member operator(this->)
+	/* 
+	 * when I use getMA() without explicit class member operator(this->)
 	 * the code doesn't compile because in template classes, the compiler
 	 * doesn't look in the derived class when performing name look-up
 	 * so you have to explicitly specify that you are using a member of the
-	 * class. (ChatGPT said so) */
+	 * class. (ChatGPT said so) 
+	 *
+	 */
 
-	T previousEma = this->getMA();
+	double previousEma = this->getMA();
 
 	this->count_ += 1;
 
 	if (previousEma == 0) {
 		this->currentMA_ = data;
-//
-//		return;
 	}
 
 	const double alpha = this->ALPHA;
@@ -103,7 +103,4 @@ void ExponentialMovingAverage<T>::addDataAndCalculateMA(const T& data) {
 #endif
 }
 /* EMA End */
-
-template class SimpleMovingAverage<double>;
-template class ExponentialMovingAverage<double>;
 

@@ -7,7 +7,7 @@ class Test {
 private:
 	double emaVal_ = 0.0;
 	double span_ = 3.0;
-	std::unordered_map<int, ExponentialMovingAverage<double>> emaMap_;
+	std::unordered_map<int, ExponentialMovingAverage> emaMap_;
 
 public:
 	Test();
@@ -15,7 +15,7 @@ public:
 };
 
 Test::Test() {
-	emaMap_[0] = ExponentialMovingAverage<double>(span_);
+	emaMap_[0] = ExponentialMovingAverage(span_);
 }
 
 void Test::foo(double val) {

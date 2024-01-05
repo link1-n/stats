@@ -1,10 +1,10 @@
 lib/*
-test/main.dSYM
-test/main
-test/mainClass.dSYM
-test/mainClass
-test/mainStd.dSYM
-test/mainStd
+test/rollingStats_test.dSYM
+test/rollingStats_test
+test/movingAverage_test.dSYM
+test/movingAverage_test
+test/movingAverageClass_test.dSYM
+test/movingAverageClass_test
 test/.cache
 
 test/compile_commands.json

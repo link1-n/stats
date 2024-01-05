@@ -5,8 +5,8 @@
 int main() {
 	double emaSpan = 10.0;
 	double smaPeriod = 3.0;
-	SimpleMovingAverage<double> sma(smaPeriod);
-	ExponentialMovingAverage<double> ema(emaSpan);
+	SimpleMovingAverage sma(smaPeriod);
+	ExponentialMovingAverage ema(emaSpan);
 
 	sma.addDataAndCalculateMA(10.0);
 	sma.addDataAndCalculateMA(15.0);
